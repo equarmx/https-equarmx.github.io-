@@ -14,14 +14,17 @@
                                     type="text"
                                     placeholder="Введите фамилию"
                                     v-model.trim="surname"
-                                    :class="{invalid: ($v.surname.$dirty && !$v.surname.required) || ($v.surname.$dirty && !$v.surname.maxLength)}"
+                                    :class="{invalid: ($v.surname.$dirty && !$v.surname.required) || ($v.surname.$dirty && !$v.surname.maxLength) || ($v.surname.$dirty && !$v.surname.rusLiter)}"
                             >
                             <small
                                     v-if="$v.surname.$dirty && !$v.surname.required"
                             >Введите фамилию</small>
                             <small
+                                    v-else-if="$v.surname.$dirty && !$v.surname.rusLiter"
+                            >Введите фамилию на русском языке</small>
+                            <small
                                     v-else-if="$v.surname.$dirty && !$v.surname.maxLength"
-                            >Поле превышает 20 символов</small>
+                            >Вы превысили 20 символов</small>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="name">Имя <font color="red">*</font></label>
@@ -30,14 +33,17 @@
                                     type="text"
                                     placeholder="Введите имя"
                                     v-model.trim="name"
-                                    :class="{invalid: ($v.name.$dirty && !$v.name.required) || ($v.name.$dirty && !$v.name.maxLength)}"
+                                    :class="{invalid: ($v.name.$dirty && !$v.name.required) || ($v.name.$dirty && !$v.name.maxLength) || ($v.name.$dirty && !$v.name.rusLiter)}"
                             >
                             <small
                                     v-if="$v.name.$dirty && !$v.name.required"
                             >Введите фамилию</small>
                             <small
+                                    v-else-if="$v.name.$dirty && !$v.name.rusLiter"
+                            >Введите фамилию на русском языке</small>
+                            <small
                                     v-else-if="$v.name.$dirty && !$v.name.maxLength"
-                            >Поле превышает 20 символов</small>
+                            >Вы превысили 20 символов</small>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="middle-name">Отчество</label>
@@ -71,8 +77,22 @@
                                     id="tel"
                                     type="tel"
                                     placeholder="79080671699"
+                                    v-model.trim="tel"
+                                    :class="{invalid: ($v.tel.$dirty && !$v.tel.required) || ($v.tel.$dirty && !$v.tel.phoneSeven) || ($v.tel.$dirty && !$v.tel.maxLength) || ($v.tel.$dirty && !$v.tel.minLength) || ($v.tel.$dirty && !$v.tel.phoneValid)}"
                             >
-                            <small class="form__error">Номер телефона</small>
+                            <small
+                                    v-if="$v.tel.$dirty && !$v.tel.required"
+                            >Вы не ввели номер телефона</small>
+                            <small
+                                    v-else-if="$v.tel.$dirty && !$v.tel.phoneSeven"
+                            >Номер телефона должен начинаться с 7</small>
+                            <small
+                                    v-else-if="$v.tel.$dirty && !$v.tel.phoneValid"
+                            >Номер телефона должен содержать только цифры</small>
+                            <small
+                                    v-else-if="($v.tel.$dirty && !$v.tel.maxLength) || ($v.tel.$dirty && !$v.tel.minLength)"
+                            >Введен некорректный номер телефона</small>
+
                         </div>
                         <div>
                             <label class="typo__label">Выберите пол</label>
@@ -84,7 +104,7 @@
                                     :options="options2"
                             ></multiselect>
                         </div>
-                        <div :class="{ 'invalid': isInvalid2 }">
+                        <div :class="{ 'invalid': isInvalid2 || ($v.selected.$dirty && !$v.selected.required)}">
                             <label>Выберите категорию клиента <font color="red">*</font></label>
                             <multiselect
                                     v-model="selected"
@@ -95,7 +115,8 @@
                                     @input="onChange2"
                                     @close="onTouch2"
                             ></multiselect>
-                            <small v-show="isInvalid2">Не выбрано значение</small>
+                            <small v-if="isInvalid2 || ($v.selected.$dirty && !$v.selected.required)"
+                            >Не выбрано значение</small>
                         </div>
                         <div class="user-personal__input-field">
                             <label>Выбор врача:</label>
@@ -107,6 +128,10 @@
                                     <option value="value3">Чернышева</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="user-personal__checkbox-field">
+                            <label for="scales">Не отправлять СМС</label>
+                            <input class="checkbox" type="checkbox" id="scales" name="scales">
                         </div>
                     </div>
                     <div class="user-personal-adress">
@@ -141,8 +166,18 @@
                                     id="city"
                                     type="text"
                                     placeholder="Введите город"
+                                    v-model.trim="city"
+                                    :class="{invalid: ($v.city.$dirty && !$v.city.required) || ($v.city.$dirty && !$v.city.maxLength) || ($v.city.$dirty && !$v.city.rusLiter)}"
                             >
-                            <small class="#">Город</small>
+                            <small
+                                    v-if="$v.city.$dirty && !$v.city.required"
+                            >Введите город</small>
+                            <small
+                                    v-else-if="$v.city.$dirty && !$v.city.rusLiter"
+                            >Введите город на русском языке</small>
+                            <small
+                                    v-else-if="$v.city.$dirty && !$v.city.maxLength"
+                            >Вы превысили 20 символов</small>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="street">Улица</label>
@@ -166,13 +201,16 @@
                         <div class="user-document">
                             <label>Выберите документ: <font color="red">*</font></label>
                             <div class="user-document__selector">
-                                <select>
+                                <select v-model.trim="typeDoc"  :class="{invalid: $v.typeDoc.$dirty && !$v.typeDoc.required}">
                                     <option value="" selected>Выбрать</option>
                                     <option value="value1">Паспорт</option>
                                     <option value="value2">Свидетельство о рождении</option>
                                     <option value="value3">Водительское удостоверение</option>
                                 </select>
                             </div>
+                            <small
+                                    v-if="$v.typeDoc.$dirty && !$v.typeDoc.required"
+                            >Выберите документ</small>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="serial">Серия</label>
@@ -202,15 +240,23 @@
                             <label for="dateGive">Дата выдачи <font color="red">*</font></label>
                             <input
                                     id="dateGive"
-                                    type="text"
+                                    type="date"
+                                    v-model.trim="dateDoc"
+                                    :class="{invalid: ($v.dateDoc.$dirty && !$v.dateDoc.required) || ($v.dateDoc.$dirty && !$v.dateDoc.maxValue)}"
                             >
-                            <small class="#">Дата выдачи</small>
+                            <small
+                                    v-if="$v.dateDoc.$dirty && !$v.dateDoc.required"
+                            >Введите дату выдачи</small>
+                            <small
+                                    v-else-if="$v.dateDoc.$dirty && !$v.dateDoc.maxValue"
+                            >Выбрана ненаступившая дата</small>
                         </div>
                     </div>
                     <div class="user-personal__button">
                         <button class="user__btn" type="submit">Зарегистрироваться</button>
                     </div>
                 </form>
+                <small class="outline">*Поле обязательное для заполнения</small>
             </div>
         </div>
     </div>
@@ -220,12 +266,23 @@
     import {required, minLength, maxLength, minValue, maxValue} from "vuelidate/lib/validators"
     import Multiselect from "vue-multiselect"
 
+    const maxVal = (value) => value < new Date().toISOString()
+    const minVal = (value) => value > new Date('01/01/1914').toISOString()
+    const rusAlpha = (value) => /[а-яА-ЯЁё]/.test(value)
+    const isPhone = (value) => /^\+?[0-9]+$/.test(value)
+    const sevenNum = (value) => value.toString()[0] === '7'
+
     export default {
         name: "Registration",
         validations: {
-            surname: {required, maxLength: maxLength(20)},
-            name: {required, maxLength: maxLength(20)},
-            birthday: {required, maxValue: maxValue(new Date()), minValue: minValue(new Date('01/01/1995'))}
+            surname: {required, maxLength: maxLength(20), rusLiter: rusAlpha},
+            name: {required, maxLength: maxLength(20), rusLiter: rusAlpha},
+            birthday: {required, maxValue: maxVal,  minValue: minVal},
+            selected: {required},
+            tel: {required, maxLength: maxLength(11), minLength: minLength(11), phoneValid:isPhone, phoneSeven:sevenNum},
+            city: {required, maxLength: maxLength(20), rusLiter: rusAlpha},
+            typeDoc: {required},
+            dateDoc: {required, maxValue: maxVal}
         },
         components: {
             Multiselect
@@ -235,9 +292,13 @@
                 surname: '',
                 name: '',
                 birthday: '',
+                tel: '',
+                city: '',
+                typeDoc: '',
+                dateDoc: '',
                 isTouched1: false,
                 isTouched2: false,
-                selected: null,
+                selected: '',
                 options: ['VIP', 'Проблемные', 'ОМС'],
                 value1: [],
                 value2: [],
@@ -300,6 +361,10 @@
                     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1)
                     line-height: 20px
 
+                .outline
+                    font-size: 12px
+                    padding-top: 15px
+
                 form
                     width: 100%
                     max-width: 500px
@@ -332,7 +397,6 @@
                         color: #bbbbbb
                     small
                         color: red
-                        /*visibility: hidden*/
                         font-size: 0.9em
                     .user-personal__date
                         input
@@ -348,6 +412,14 @@
                         color: #ffffff
                         background: #22b2ea
                         border: 1px solid #22b2ea
+                    .user-personal__checkbox-field
+                        padding: 15px 0 15px
+                        display: flex
+                        align-items: center
+                        .checkbox
+                            display: flex
+                            width: 80px
+                            height: 16px
                     .invalid
                         border-color: red
                         visibility: visible
