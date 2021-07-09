@@ -317,7 +317,7 @@
                     this.$v.$touch()
                     return
                 }
-                console.log('Вы успешно ввели данные!')
+                alert('Вы успешно ввели данные!')
             },
             onChange2 (value) {
                 this.value2 = value
