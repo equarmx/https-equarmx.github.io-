@@ -216,7 +216,7 @@
                             <label for="serial">Серия</label>
                             <input
                                     id="serial"
-                                    type="number"
+                                    type="text"
                                     placeholder="Введите серию"
                             >
                         </div>
@@ -412,6 +412,9 @@
                         color: #ffffff
                         background: #22b2ea
                         border: 1px solid #22b2ea
+                    .user__btn:hover
+                        background: #27a3e6
+                        box-shadow: 0 0 5px blue
                     .user-personal__checkbox-field
                         padding: 15px 0 15px
                         display: flex
