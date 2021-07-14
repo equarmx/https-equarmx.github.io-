@@ -104,7 +104,7 @@
                                     :options="options2"
                             ></multiselect>
                         </div>
-                        <div :class="{ 'invalid': isInvalid2 || ($v.selected.$dirty && !$v.selected.required)}">
+                        <div :class="{ 'invalid': ($v.selected.$dirty && !$v.selected.required)}">
                             <label>Выберите категорию клиента <font color="red">*</font></label>
                             <multiselect
                                     v-model="selected"
@@ -112,10 +112,8 @@
                                     :show-labels="false"
                                     :multiple="true"
                                     :options="options"
-                                    @input="onChange2"
-                                    @close="onTouch2"
                             ></multiselect>
-                            <small v-if="isInvalid2 || ($v.selected.$dirty && !$v.selected.required)"
+                            <small v-if="$v.selected.$dirty && !$v.selected.required"
                             >Не выбрано значение</small>
                         </div>
                         <div class="user-personal__input-field">
@@ -296,19 +294,12 @@
                 city: '',
                 typeDoc: '',
                 dateDoc: '',
-                isTouched1: false,
-                isTouched2: false,
                 selected: '',
                 options: ['VIP', 'Проблемные', 'ОМС'],
                 value1: [],
                 value2: [],
                 selected2: null,
                 options2: ['Мужской', 'Женский']
-            }
-        },
-        computed: {
-            isInvalid2 () {
-            return this.isTouched2 && this.value2.length === 0
             }
         },
         methods: {
@@ -319,12 +310,6 @@
                 }
                 alert('Вы успешно ввели данные!')
             },
-            onChange2 (value) {
-                this.value2 = value
-            },
-            onTouch2 () {
-                this.isTouched2 = true
-            }
         }
     }
 </script>
@@ -441,4 +426,3 @@
                     .multiselect__select
                         left: 480px
 </style>
-
