@@ -104,7 +104,7 @@
                                     :options="options2"
                             ></multiselect>
                         </div>
-                        <div :class="{ 'invalid': ($v.selected.$dirty && !$v.selected.required)}">
+                        <div :class="{ 'invalid': isInvalid2 || ($v.selected.$dirty && !$v.selected.required)}">
                             <label>Выберите категорию клиента <font color="red">*</font></label>
                             <multiselect
                                     v-model="selected"
@@ -112,8 +112,10 @@
                                     :show-labels="false"
                                     :multiple="true"
                                     :options="options"
+                                    @input="onChange2"
+                                    @close="onTouch2"
                             ></multiselect>
-                            <small v-if="$v.selected.$dirty && !$v.selected.required"
+                            <small v-if="isInvalid2 || ($v.selected.$dirty && !$v.selected.required)"
                             >Не выбрано значение</small>
                         </div>
                         <div class="user-personal__input-field">
@@ -294,12 +296,19 @@
                 city: '',
                 typeDoc: '',
                 dateDoc: '',
+                isTouched1: false,
+                isTouched2: false,
                 selected: '',
                 options: ['VIP', 'Проблемные', 'ОМС'],
                 value1: [],
                 value2: [],
                 selected2: null,
                 options2: ['Мужской', 'Женский']
+            }
+        },
+        computed: {
+            isInvalid2 () {
+            return this.isTouched2 && this.value2.length === 0
             }
         },
         methods: {
@@ -310,6 +319,12 @@
                 }
                 alert('Вы успешно ввели данные!')
             },
+            onChange2 (value) {
+                this.value2 = value
+            },
+            onTouch2 () {
+                this.isTouched2 = true
+            }
         }
     }
 </script>
@@ -317,6 +332,24 @@
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="sass" scoped>
     .wrapper
+        @media (max-width: 1200px)
+            .wrapper
+                max-width: 970px
+        @media (max-width: 992px)
+            .wrapper
+                max-width: 750px
+        @media (max-width: 767px)
+            .wrapper
+                max-width: none
+                select
+                    max-width: none
+                input
+                    max-width: none
+            /deep/ .multiselect
+                .multiselect__tags
+                    max-width: none !important
+                .multiselect__select
+                    left: unset !important
 
         .container
             background: linear-gradient(45deg, #1187d1 30%, #22b2ea 80%, #22cfea)
@@ -324,11 +357,11 @@
             justify-content: center
             min-height: 100vh
             box-sizing: border-box
+            padding: 25px
 
             .user
                 max-width: 700px
                 width: 100%
-                margin: 20px auto
                 padding: 30px
                 background: #fff
                 box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125)
@@ -357,8 +390,9 @@
                         display: block
                         padding: 10px 0
                     select
+                        box-sizing: border-box
                         padding-left: 0.5em
-                        width: 222px
+                        max-width: 222px
                         height: 30px
                         border: 1px solid #dddddd
                         border-radius: 4px
@@ -367,6 +401,7 @@
                         font-size: 0.9em
                     input
                         display: block
+                        box-sizing: border-box
                         width: 100%
                         max-width: 500px
                         outline: none
@@ -417,12 +452,13 @@
 
                 /deep/ .multiselect
                     .multiselect__tags
+                        box-sizing: border-box
                         background: #f9f9f9
                         transition: background 0.25s, border-color 0.25s, color 0.25s
                         border: 1px solid #dddddd
                         border-radius: 4px
                         font-size: 0.9em
-                        width: 524px
+                        max-width: 500px
                     .multiselect__select
-                        left: 480px
+                        left: 457px
 </style>
