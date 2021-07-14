@@ -14,17 +14,19 @@
                                     type="text"
                                     placeholder="Введите фамилию"
                                     v-model.trim="surname"
-                                    :class="{invalid: ($v.surname.$dirty && (!$v.surname.required || !$v.surname.maxLength || !$v.surname.rusLiter))}"
+                                    :class="{invalid: ($v.surname.$dirty && !$v.surname.required) || ($v.surname.$dirty && !$v.surname.maxLength) || ($v.surname.$dirty && !$v.surname.rusLiter)}"
                             >
+                            <template v-if="$v.surname.$dirty">
                             <small
-                                    v-if="$v.surname.$dirty && !$v.surname.required"
+                                    v-if="!$v.surname.required"
                             >Введите фамилию</small>
                             <small
-                                    v-else-if="$v.surname.$dirty && !$v.surname.rusLiter"
+                                    v-else-if="!$v.surname.rusLiter"
                             >Введите фамилию на русском языке</small>
                             <small
-                                    v-else-if="$v.surname.$dirty && !$v.surname.maxLength"
+                                    v-else-if="!$v.surname.maxLength"
                             >Вы превысили 20 символов</small>
+                            </template>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="name">Имя <font color="red">*</font></label>
@@ -33,17 +35,19 @@
                                     type="text"
                                     placeholder="Введите имя"
                                     v-model.trim="name"
-                                    :class="{invalid: ($v.name.$dirty && (!$v.name.required || !$v.name.maxLength || !$v.name.rusLiter))}"
+                                    :class="{invalid: ($v.name.$dirty && !$v.name.required) || ($v.name.$dirty && !$v.name.maxLength) || ($v.name.$dirty && !$v.name.rusLiter)}"
                             >
+                            <template v-if="$v.name.$dirty">
                             <small
-                                    v-if="$v.name.$dirty && !$v.name.required"
+                                    v-if="!$v.name.required"
                             >Введите фамилию</small>
                             <small
-                                    v-else-if="$v.name.$dirty && !$v.name.rusLiter"
+                                    v-else-if="!$v.name.rusLiter"
                             >Введите фамилию на русском языке</small>
                             <small
-                                    v-else-if="$v.name.$dirty && !$v.name.maxLength"
+                                    v-else-if="!$v.name.maxLength"
                             >Вы превысили 20 символов</small>
+                            </template>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="middle-name">Отчество</label>
@@ -59,17 +63,19 @@
                                     id="birthDay"
                                     type="date"
                                     v-model.trim="birthday"
-                                    :class="{invalid: ($v.birthday.$dirty && (!$v.birthday.required || !$v.birthday.maxValue || !$v.birthday.minValue))}"
+                                    :class="{invalid: ($v.birthday.$dirty && !$v.birthday.required) || ($v.birthday.$dirty && !$v.birthday.maxValue) || ($v.birthday.$dirty && !$v.birthday.minValue)}"
                             >
+                            <template v-if="$v.birthday.$dirty">
                             <small
-                                    v-if="$v.birthday.$dirty && !$v.birthday.required"
+                                    v-if="!$v.birthday.required"
                             >Введите дату рождения</small>
                             <small
-                                    v-else-if="$v.birthday.$dirty && !$v.birthday.maxValue"
+                                    v-else-if="!$v.birthday.maxValue"
                             >Выбрана ненаступившая дата</small>
                             <small
-                                    v-else-if="$v.birthday.$dirty && !$v.birthday.minValue"
+                                    v-else-if="!$v.birthday.minValue"
                             >Выбрана слишком старая дата</small>
+                            </template>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="tel">Номер телефона <font color="red">*</font></label>
@@ -78,21 +84,22 @@
                                     type="tel"
                                     placeholder="79080671699"
                                     v-model.trim="tel"
-                                    :class="{invalid: ($v.tel.$dirty && (!$v.tel.required || !$v.tel.phoneSeven || !$v.tel.maxLength || !$v.tel.minLength || !$v.tel.phoneValid))}"
+                                    :class="{invalid: ($v.tel.$dirty && !$v.tel.required) || ($v.tel.$dirty && !$v.tel.phoneSeven) || ($v.tel.$dirty && !$v.tel.maxLength) || ($v.tel.$dirty && !$v.tel.minLength) || ($v.tel.$dirty && !$v.tel.phoneValid)}"
                             >
+                            <template v-if="$v.tel.$dirty">
                             <small
-                                    v-if="$v.tel.$dirty && !$v.tel.required"
+                                    v-if="!$v.tel.required"
                             >Вы не ввели номер телефона</small>
                             <small
-                                    v-else-if="$v.tel.$dirty && !$v.tel.phoneSeven"
+                                    v-else-if="!$v.tel.phoneSeven"
                             >Номер телефона должен начинаться с 7</small>
                             <small
-                                    v-else-if="$v.tel.$dirty && !$v.tel.phoneValid"
+                                    v-else-if="!$v.tel.phoneValid"
                             >Номер телефона должен содержать только цифры</small>
                             <small
-                                    v-else-if="($v.tel.$dirty && !$v.tel.maxLength) || ($v.tel.$dirty && !$v.tel.minLength)"
+                                    v-else-if="!$v.tel.maxLength || !$v.tel.minLength"
                             >Введен некорректный номер телефона</small>
-
+                            </template>
                         </div>
                         <div>
                             <label class="typo__label">Выберите пол</label>
@@ -167,17 +174,19 @@
                                     type="text"
                                     placeholder="Введите город"
                                     v-model.trim="city"
-                                    :class="{invalid: ($v.city.$dirty && (!$v.city.required || !$v.city.maxLength || !$v.city.rusLiter))}"
+                                    :class="{invalid: ($v.city.$dirty && !$v.city.required) || ($v.city.$dirty && !$v.city.maxLength) || ($v.city.$dirty && !$v.city.rusLiter)}"
                             >
+                            <template v-if="$v.city.$dirty">
                             <small
-                                    v-if="$v.city.$dirty && !$v.city.required"
+                                    v-if="!$v.city.required"
                             >Введите город</small>
                             <small
-                                    v-else-if="$v.city.$dirty && !$v.city.rusLiter"
+                                    v-else-if="!$v.city.rusLiter"
                             >Введите город на русском языке</small>
                             <small
-                                    v-else-if="$v.city.$dirty && !$v.city.maxLength"
+                                    v-else-if="!$v.city.maxLength"
                             >Вы превысили 20 символов</small>
+                            </template>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="street">Улица</label>
@@ -242,7 +251,7 @@
                                     id="dateGive"
                                     type="date"
                                     v-model.trim="dateDoc"
-                                    :class="{invalid: ($v.dateDoc.$dirty && (!$v.dateDoc.required || !$v.dateDoc.maxValue))}"
+                                    :class="{invalid: ($v.dateDoc.$dirty && !$v.dateDoc.required) || ($v.dateDoc.$dirty && !$v.dateDoc.maxValue)}"
                             >
                             <small
                                     v-if="$v.dateDoc.$dirty && !$v.dateDoc.required"
