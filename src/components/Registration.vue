@@ -14,7 +14,7 @@
                                     type="text"
                                     placeholder="Введите фамилию"
                                     v-model.trim="surname"
-                                    :class="{invalid: ($v.surname.$dirty && !$v.surname.required) || ($v.surname.$dirty && !$v.surname.maxLength) || ($v.surname.$dirty && !$v.surname.rusLiter)}"
+                                    :class="{invalid: ($v.surname.$dirty && (!$v.surname.required || !$v.surname.maxLength || !$v.surname.rusLiter))}"
                             >
                             <small
                                     v-if="$v.surname.$dirty && !$v.surname.required"
@@ -33,7 +33,7 @@
                                     type="text"
                                     placeholder="Введите имя"
                                     v-model.trim="name"
-                                    :class="{invalid: ($v.name.$dirty && !$v.name.required) || ($v.name.$dirty && !$v.name.maxLength) || ($v.name.$dirty && !$v.name.rusLiter)}"
+                                    :class="{invalid: ($v.name.$dirty && (!$v.name.required || !$v.name.maxLength || !$v.name.rusLiter))}"
                             >
                             <small
                                     v-if="$v.name.$dirty && !$v.name.required"
@@ -59,7 +59,7 @@
                                     id="birthDay"
                                     type="date"
                                     v-model.trim="birthday"
-                                    :class="{invalid: ($v.birthday.$dirty && !$v.birthday.required) || ($v.birthday.$dirty && !$v.birthday.maxValue) || ($v.birthday.$dirty && !$v.birthday.minValue)}"
+                                    :class="{invalid: ($v.birthday.$dirty && (!$v.birthday.required || !$v.birthday.maxValue || !$v.birthday.minValue))}"
                             >
                             <small
                                     v-if="$v.birthday.$dirty && !$v.birthday.required"
@@ -78,7 +78,7 @@
                                     type="tel"
                                     placeholder="79080671699"
                                     v-model.trim="tel"
-                                    :class="{invalid: ($v.tel.$dirty && !$v.tel.required) || ($v.tel.$dirty && !$v.tel.phoneSeven) || ($v.tel.$dirty && !$v.tel.maxLength) || ($v.tel.$dirty && !$v.tel.minLength) || ($v.tel.$dirty && !$v.tel.phoneValid)}"
+                                    :class="{invalid: ($v.tel.$dirty && (!$v.tel.required || !$v.tel.phoneSeven || !$v.tel.maxLength || !$v.tel.minLength || !$v.tel.phoneValid))}"
                             >
                             <small
                                     v-if="$v.tel.$dirty && !$v.tel.required"
@@ -167,7 +167,7 @@
                                     type="text"
                                     placeholder="Введите город"
                                     v-model.trim="city"
-                                    :class="{invalid: ($v.city.$dirty && !$v.city.required) || ($v.city.$dirty && !$v.city.maxLength) || ($v.city.$dirty && !$v.city.rusLiter)}"
+                                    :class="{invalid: ($v.city.$dirty && (!$v.city.required || !$v.city.maxLength || !$v.city.rusLiter))}"
                             >
                             <small
                                     v-if="$v.city.$dirty && !$v.city.required"
@@ -242,7 +242,7 @@
                                     id="dateGive"
                                     type="date"
                                     v-model.trim="dateDoc"
-                                    :class="{invalid: ($v.dateDoc.$dirty && !$v.dateDoc.required) || ($v.dateDoc.$dirty && !$v.dateDoc.maxValue)}"
+                                    :class="{invalid: ($v.dateDoc.$dirty && (!$v.dateDoc.required || !$v.dateDoc.maxValue))}"
                             >
                             <small
                                     v-if="$v.dateDoc.$dirty && !$v.dateDoc.required"
@@ -441,4 +441,3 @@
                     .multiselect__select
                         left: 480px
 </style>
-
