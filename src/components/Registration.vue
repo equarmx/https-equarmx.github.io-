@@ -14,18 +14,21 @@
                                     type="text"
                                     placeholder="Введите фамилию"
                                     v-model.trim="surname"
-                                    :class="{invalid: ($v.surname.$dirty && !$v.surname.required) || ($v.surname.$dirty && !$v.surname.maxLength) || ($v.surname.$dirty && !$v.surname.rusLiter)}"
+                                    :class="{invalid: $v.surname.$dirty && (!$v.surname.required || !$v.surname.maxLength || !$v.surname.rusLiter)}"
                             >
                             <template v-if="$v.surname.$dirty">
-                            <small
-                                    v-if="!$v.surname.required"
-                            >Введите фамилию</small>
-                            <small
-                                    v-else-if="!$v.surname.rusLiter"
-                            >Введите фамилию на русском языке</small>
-                            <small
-                                    v-else-if="!$v.surname.maxLength"
-                            >Вы превысили 20 символов</small>
+                                <small
+                                        v-if="!$v.surname.required"
+                                >Введите фамилию
+                                </small>
+                                <small
+                                        v-else-if="!$v.surname.rusLiter"
+                                >Введите фамилию на русском языке
+                                </small>
+                                <small
+                                        v-else-if="!$v.surname.maxLength"
+                                >Вы превысили 20 символов
+                                </small>
                             </template>
                         </div>
                         <div class="user-personal__input-field">
@@ -35,18 +38,21 @@
                                     type="text"
                                     placeholder="Введите имя"
                                     v-model.trim="name"
-                                    :class="{invalid: ($v.name.$dirty && !$v.name.required) || ($v.name.$dirty && !$v.name.maxLength) || ($v.name.$dirty && !$v.name.rusLiter)}"
+                                    :class="{invalid: $v.name.$dirty && (!$v.name.required || !$v.name.maxLength || !$v.name.rusLiter)}"
                             >
                             <template v-if="$v.name.$dirty">
-                            <small
-                                    v-if="!$v.name.required"
-                            >Введите фамилию</small>
-                            <small
-                                    v-else-if="!$v.name.rusLiter"
-                            >Введите фамилию на русском языке</small>
-                            <small
-                                    v-else-if="!$v.name.maxLength"
-                            >Вы превысили 20 символов</small>
+                                <small
+                                        v-if="!$v.name.required"
+                                >Введите фамилию
+                                </small>
+                                <small
+                                        v-else-if="!$v.name.rusLiter"
+                                >Введите фамилию на русском языке
+                                </small>
+                                <small
+                                        v-else-if="!$v.name.maxLength"
+                                >Вы превысили 20 символов
+                                </small>
                             </template>
                         </div>
                         <div class="user-personal__input-field">
@@ -63,18 +69,21 @@
                                     id="birthDay"
                                     type="date"
                                     v-model.trim="birthday"
-                                    :class="{invalid: ($v.birthday.$dirty && !$v.birthday.required) || ($v.birthday.$dirty && !$v.birthday.maxValue) || ($v.birthday.$dirty && !$v.birthday.minValue)}"
+                                    :class="{invalid: $v.birthday.$dirty && (!$v.birthday.required || !$v.birthday.maxValue || !$v.birthday.minValue)}"
                             >
                             <template v-if="$v.birthday.$dirty">
-                            <small
-                                    v-if="!$v.birthday.required"
-                            >Введите дату рождения</small>
-                            <small
-                                    v-else-if="!$v.birthday.maxValue"
-                            >Выбрана ненаступившая дата</small>
-                            <small
-                                    v-else-if="!$v.birthday.minValue"
-                            >Выбрана слишком старая дата</small>
+                                <small
+                                        v-if="!$v.birthday.required"
+                                >Введите дату рождения
+                                </small>
+                                <small
+                                        v-else-if="!$v.birthday.maxValue"
+                                >Выбрана ненаступившая дата
+                                </small>
+                                <small
+                                        v-else-if="!$v.birthday.minValue"
+                                >Выбрана слишком старая дата
+                                </small>
                             </template>
                         </div>
                         <div class="user-personal__input-field">
@@ -84,21 +93,25 @@
                                     type="tel"
                                     placeholder="79080671699"
                                     v-model.trim="tel"
-                                    :class="{invalid: ($v.tel.$dirty && !$v.tel.required) || ($v.tel.$dirty && !$v.tel.phoneSeven) || ($v.tel.$dirty && !$v.tel.maxLength) || ($v.tel.$dirty && !$v.tel.minLength) || ($v.tel.$dirty && !$v.tel.phoneValid)}"
+                                    :class="{invalid: $v.tel.$dirty && (!$v.tel.required || !$v.tel.phoneSeven || !$v.tel.maxLength || !$v.tel.minLength || !$v.tel.phoneValid)}"
                             >
                             <template v-if="$v.tel.$dirty">
-                            <small
-                                    v-if="!$v.tel.required"
-                            >Вы не ввели номер телефона</small>
-                            <small
-                                    v-else-if="!$v.tel.phoneSeven"
-                            >Номер телефона должен начинаться с 7</small>
-                            <small
-                                    v-else-if="!$v.tel.phoneValid"
-                            >Номер телефона должен содержать только цифры</small>
-                            <small
-                                    v-else-if="!$v.tel.maxLength || !$v.tel.minLength"
-                            >Введен некорректный номер телефона</small>
+                                <small
+                                        v-if="!$v.tel.required"
+                                >Вы не ввели номер телефона
+                                </small>
+                                <small
+                                        v-else-if="!$v.tel.phoneSeven"
+                                >Номер телефона должен начинаться с 7
+                                </small>
+                                <small
+                                        v-else-if="!$v.tel.phoneValid"
+                                >Номер телефона должен содержать только цифры
+                                </small>
+                                <small
+                                        v-else-if="!$v.tel.maxLength || !$v.tel.minLength"
+                                >Введен некорректный номер телефона
+                                </small>
                             </template>
                         </div>
                         <div>
@@ -111,7 +124,7 @@
                                     :options="options2"
                             ></multiselect>
                         </div>
-                        <div :class="{ 'invalid': isInvalid2 || ($v.selected.$dirty && !$v.selected.required)}">
+                        <div :class="{ 'invalid': $v.selected.$dirty && !$v.selected.required}">
                             <label>Выберите категорию клиента <font color="red">*</font></label>
                             <multiselect
                                     v-model="selected"
@@ -119,11 +132,10 @@
                                     :show-labels="false"
                                     :multiple="true"
                                     :options="options"
-                                    @input="onChange2"
-                                    @close="onTouch2"
                             ></multiselect>
-                            <small v-if="isInvalid2 || ($v.selected.$dirty && !$v.selected.required)"
-                            >Не выбрано значение</small>
+                            <small v-if="$v.selected.$dirty && !$v.selected.required"
+                            >Не выбрано значение
+                            </small>
                         </div>
                         <div class="user-personal__input-field">
                             <label>Выбор врача:</label>
@@ -174,18 +186,21 @@
                                     type="text"
                                     placeholder="Введите город"
                                     v-model.trim="city"
-                                    :class="{invalid: ($v.city.$dirty && !$v.city.required) || ($v.city.$dirty && !$v.city.maxLength) || ($v.city.$dirty && !$v.city.rusLiter)}"
+                                    :class="{invalid: $v.city.$dirty && (!$v.city.required || !$v.city.maxLength || !$v.city.rusLiter)}"
                             >
                             <template v-if="$v.city.$dirty">
-                            <small
-                                    v-if="!$v.city.required"
-                            >Введите город</small>
-                            <small
-                                    v-else-if="!$v.city.rusLiter"
-                            >Введите город на русском языке</small>
-                            <small
-                                    v-else-if="!$v.city.maxLength"
-                            >Вы превысили 20 символов</small>
+                                <small
+                                        v-if="!$v.city.required"
+                                >Введите город
+                                </small>
+                                <small
+                                        v-else-if="!$v.city.rusLiter"
+                                >Введите город на русском языке
+                                </small>
+                                <small
+                                        v-else-if="!$v.city.maxLength"
+                                >Вы превысили 20 символов
+                                </small>
                             </template>
                         </div>
                         <div class="user-personal__input-field">
@@ -210,7 +225,8 @@
                         <div class="user-document">
                             <label>Выберите документ: <font color="red">*</font></label>
                             <div class="user-document__selector">
-                                <select v-model.trim="typeDoc"  :class="{invalid: $v.typeDoc.$dirty && !$v.typeDoc.required}">
+                                <select v-model.trim="typeDoc"
+                                        :class="{invalid: $v.typeDoc.$dirty && !$v.typeDoc.required}">
                                     <option value="" selected>Выбрать</option>
                                     <option value="value1">Паспорт</option>
                                     <option value="value2">Свидетельство о рождении</option>
@@ -219,7 +235,8 @@
                             </div>
                             <small
                                     v-if="$v.typeDoc.$dirty && !$v.typeDoc.required"
-                            >Выберите документ</small>
+                            >Выберите документ
+                            </small>
                         </div>
                         <div class="user-personal__input-field">
                             <label for="serial">Серия</label>
@@ -251,14 +268,16 @@
                                     id="dateGive"
                                     type="date"
                                     v-model.trim="dateDoc"
-                                    :class="{invalid: ($v.dateDoc.$dirty && !$v.dateDoc.required) || ($v.dateDoc.$dirty && !$v.dateDoc.maxValue)}"
+                                    :class="{invalid: $v.dateDoc.$dirty && (!$v.dateDoc.required || !$v.dateDoc.maxValue)}"
                             >
                             <small
                                     v-if="$v.dateDoc.$dirty && !$v.dateDoc.required"
-                            >Введите дату выдачи</small>
+                            >Введите дату выдачи
+                            </small>
                             <small
                                     v-else-if="$v.dateDoc.$dirty && !$v.dateDoc.maxValue"
-                            >Выбрана ненаступившая дата</small>
+                            >Выбрана ненаступившая дата
+                            </small>
                         </div>
                     </div>
                     <div class="user-personal__button">
@@ -286,9 +305,15 @@
         validations: {
             surname: {required, maxLength: maxLength(20), rusLiter: rusAlpha},
             name: {required, maxLength: maxLength(20), rusLiter: rusAlpha},
-            birthday: {required, maxValue: maxVal,  minValue: minVal},
+            birthday: {required, maxValue: maxVal, minValue: minVal},
             selected: {required},
-            tel: {required, maxLength: maxLength(11), minLength: minLength(11), phoneValid:isPhone, phoneSeven:sevenNum},
+            tel: {
+                required,
+                maxLength: maxLength(11),
+                minLength: minLength(11),
+                phoneValid: isPhone,
+                phoneSeven: sevenNum
+            },
             city: {required, maxLength: maxLength(20), rusLiter: rusAlpha},
             typeDoc: {required},
             dateDoc: {required, maxValue: maxVal}
@@ -305,8 +330,6 @@
                 city: '',
                 typeDoc: '',
                 dateDoc: '',
-                isTouched1: false,
-                isTouched2: false,
                 selected: '',
                 options: ['VIP', 'Проблемные', 'ОМС'],
                 value1: [],
@@ -315,35 +338,23 @@
                 options2: ['Мужской', 'Женский']
             }
         },
-        computed: {
-            isInvalid2 () {
-            return this.isTouched2 && this.value2.length === 0
-            }
-        },
         methods: {
             submitHandler() {
-                if (this.$v.$invalid){
+                if (this.$v.$invalid) {
                     this.$v.$touch()
                     return
                 }
                 alert('Вы успешно ввели данные!')
             },
-            onChange2 (value) {
-                this.value2 = value
-            },
-            onTouch2 () {
-                this.isTouched2 = true
-            }
         }
     }
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="sass" scoped>
-    .wrapper
-        @media (max-width: 1200px)
-            .wrapper
-                max-width: 970px
+    @media (max-width: 1200px)
+        .wrapper
+            max-width: 970px
         @media (max-width: 992px)
             .wrapper
                 max-width: 750px
@@ -360,6 +371,7 @@
                 .multiselect__select
                     left: unset !important
 
+    .wrapper
         .container
             background: linear-gradient(45deg, #1187d1 30%, #22b2ea 80%, #22cfea)
             display: flex
@@ -367,7 +379,6 @@
             min-height: 100vh
             box-sizing: border-box
             padding: 25px
-
             .user
                 max-width: 700px
                 width: 100%
@@ -379,7 +390,6 @@
                 flex-direction: column
                 justify-content: flex-start
                 align-items: center
-
                 .user__about
                     text-transform: uppercase
                     margin-bottom: 10px
@@ -387,11 +397,9 @@
                     font-weight: 600
                     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1)
                     line-height: 20px
-
                 .outline
                     font-size: 12px
                     padding-top: 15px
-
                 form
                     width: 100%
                     max-width: 500px
@@ -458,7 +466,6 @@
                         /deep/ .multiselect
                             .multiselect__tags
                                 border-color: red
-
                 /deep/ .multiselect
                     .multiselect__tags
                         box-sizing: border-box
