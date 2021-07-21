@@ -1,1 +1,1 @@
-https://equarmx.github.io/
+equarmx.github.io
